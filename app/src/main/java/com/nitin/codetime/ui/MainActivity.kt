@@ -1,7 +1,8 @@
-package com.nitin.codetime
+package com.nitin.codetime.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.nitin.codetime.R
 
 class MainActivity : AppCompatActivity() {
 
