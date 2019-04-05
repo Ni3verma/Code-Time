@@ -16,6 +16,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String',"ApiKey",CodeTime_ApiKey
+            buildConfigField 'String',"UserName",CodeTime_username
+            resValue 'String',"api_key",CodeTime_ApiKey
+            resValue 'String',"username",CodeTime_username
+        }
+        debug{
+            buildConfigField 'String',"ApiKey",CodeTime_ApiKey
+            buildConfigField 'String',"UserName",CodeTime_username
+            resValue 'String',"api_key",CodeTime_ApiKey
+            resValue 'String',"username",CodeTime_username
         }
     }
 }
