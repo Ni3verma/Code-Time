@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:id = "@+id/nav_graph"
+	app:startDestination = "@id/present_contests">
+
+	<fragment
+		android:id = "@+id/past_contests"
+		android:name = "com.nitin.codetime.ui.contest.past.PastContests"
+		android:label = "Archives"
+		tools:layout = "@layout/past_contests_fragment" />
+
+	<fragment
+		android:id = "@+id/present_contests"
+		android:name = "com.nitin.codetime.ui.contest.present.PresentContests"
+		android:label = "Live"
+		tools:layout = "@layout/present_contests_fragment" />
+
+	<fragment
+		android:id = "@+id/future_contests"
+		android:name = "com.nitin.codetime.ui.contest.future.FutureContests"
+		android:label = "Upcoming"
+		tools:layout = "@layout/future_contests_fragment" />
+
+</navigation>
