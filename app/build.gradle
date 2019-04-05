@@ -19,8 +19,8 @@ android {
 
             buildConfigField 'String',"ApiKey",CodeTime_ApiKey
             buildConfigField 'String',"UserName",CodeTime_username
-            resValue 'String',"api_key",CodeTime_ApiKey
-            resValue 'String',"username",CodeTime_username
+            resValue 'string',"api_key",CodeTime_ApiKey
+            resValue 'string',"username",CodeTime_username
         }
         debug{
             buildConfigField 'String',"ApiKey",CodeTime_ApiKey
