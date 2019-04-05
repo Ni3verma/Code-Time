@@ -2,16 +2,16 @@
 <menu xmlns:android = "http://schemas.android.com/apk/res/android">
 	<item
 		android:id = "@+id/past_contests"
-		android:icon = "@drawable/ic_launcher_background"
+		android:icon = "@drawable/ic_archive"
 		android:title = "Archives" />
 
 	<item
 		android:id = "@+id/present_contests"
-		android:icon = "@drawable/ic_launcher_background"
+		android:icon = "@drawable/ic_live"
 		android:title = "Live" />
 	<item
 		android:id = "@+id/future_contests"
-		android:icon = "@drawable/ic_launcher_background"
+		android:icon = "@drawable/ic_future"
 		android:title = "Upcoming" />
 
 </menu>
