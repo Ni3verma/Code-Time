@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
+import com.nitin.codetime.data.ContestListApiService
 
 class PresentContests : Fragment() {
 
@@ -27,6 +29,9 @@ class PresentContests : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PresentContestsViewModel::class.java)
         // TODO: Use the ViewModel
+
+
+        ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
     }
 
 }
