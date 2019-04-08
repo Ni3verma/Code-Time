@@ -7,8 +7,9 @@
         tools:context=".ui.contest.present.PresentContests">
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="present"/>
+        android:id = "@+id/text_view"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:text = "present" />
 
 </FrameLayout>

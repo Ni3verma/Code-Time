@@ -1,15 +1,21 @@
 package com.nitin.codetime.data
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.nitin.codetime.data.response.ContestResponse
+import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
 
 interface ContestListApiService {
+    @GET("contest")
+    fun testApiAsync(): Deferred<ContestResponse>
+
     companion object {
-        lateinit var API_KEY: String
-        lateinit var USER_NAME: String
+        private lateinit var API_KEY: String
+        private lateinit var USER_NAME: String
 
         operator fun invoke(): ContestListApiService {
             val reqInterceptor = Interceptor { chain ->

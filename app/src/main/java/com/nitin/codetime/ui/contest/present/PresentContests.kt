@@ -9,13 +9,12 @@ import androidx.lifecycle.ViewModelProviders
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.ContestListApiService
+import kotlinx.android.synthetic.main.present_contests_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class PresentContests : Fragment() {
-
-    companion object {
-        fun newInstance() = PresentContests()
-    }
-
     private lateinit var viewModel: PresentContestsViewModel
 
     override fun onCreateView(
@@ -32,6 +31,14 @@ class PresentContests : Fragment() {
 
 
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
+
+        val apiService = ContestListApiService()
+
+        //just for testing purpose
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = apiService.testApiAsync().await()
+            text_view.text = response.toString()
+        }
     }
 
 }
