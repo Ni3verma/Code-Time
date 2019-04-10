@@ -8,10 +8,15 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ContestListApiService {
     @GET("contest")
-    fun testApiAsync(): Deferred<ContestResponse>
+    fun getLiveContests(
+        @Query(ApiConstants.RESOURCE_ID_IN) resIds: String,
+        @Query(ApiConstants.START_LTE) startDate: String,
+        @Query(ApiConstants.END_GT) endDate: String
+    ): Deferred<ContestResponse>
 
     companion object {
         private lateinit var API_KEY: String
@@ -36,7 +41,7 @@ interface ContestListApiService {
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://clist.by/api/v1/json/")
+                .baseUrl(ApiConstants.BASE_URL)
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

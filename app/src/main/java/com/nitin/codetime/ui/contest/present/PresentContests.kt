@@ -5,16 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.network.ConnectivityInterceptorImpl
 import com.nitin.codetime.data.network.ContestListApiService
-import com.nitin.codetime.internal.NoConnectivityException
+import com.nitin.codetime.data.network.ContestListNetworkDataSourceImpl
 import kotlinx.android.synthetic.main.present_contests_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 class PresentContests : Fragment() {
     private lateinit var viewModel: PresentContestsViewModel
@@ -35,15 +39,18 @@ class PresentContests : Fragment() {
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
 
         val apiService = ContestListApiService(ConnectivityInterceptorImpl(this.context!!))
+        val contestListNetworkDataSource = ContestListNetworkDataSourceImpl(apiService)
+
+        contestListNetworkDataSource.downloadedContestList.observe(this,
+            Observer { text_view.text = it?.toString() ?: "No internet connection" })
+
 
         //just for testing purpose
+        AndroidThreeTen.init(this.context)
         GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val response = apiService.testApiAsync().await()
-                text_view.text = response.toString()
-            } catch (e: NoConnectivityException) {
-                text_view.text = "No internet"
-            }
+            val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+            val dateTime = formatter.format(LocalDateTime.now())
+            contestListNetworkDataSource.fetchLiveContests("1,2,12", dateTime, dateTime)
         }
     }
 
