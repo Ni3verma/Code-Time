@@ -1,6 +1,7 @@
-package com.nitin.codetime.data.network.response
+package com.nitin.codetime.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.nitin.codetime.data.network.response.ContestResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -16,7 +17,9 @@ interface ContestListApiService {
         private lateinit var API_KEY: String
         private lateinit var USER_NAME: String
 
-        operator fun invoke(): ContestListApiService {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): ContestListApiService {
             val reqInterceptor = Interceptor { chain ->
                 val request = chain.request()
                     .newBuilder()
@@ -28,6 +31,7 @@ interface ContestListApiService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(reqInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return Retrofit.Builder()

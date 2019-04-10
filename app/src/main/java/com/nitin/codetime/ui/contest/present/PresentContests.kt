@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
-import com.nitin.codetime.data.network.response.ContestListApiService
+import com.nitin.codetime.data.network.ConnectivityInterceptorImpl
+import com.nitin.codetime.data.network.ContestListApiService
+import com.nitin.codetime.internal.NoConnectivityException
 import kotlinx.android.synthetic.main.present_contests_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -32,12 +34,16 @@ class PresentContests : Fragment() {
 
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
 
-        val apiService = ContestListApiService()
+        val apiService = ContestListApiService(ConnectivityInterceptorImpl(this.context!!))
 
         //just for testing purpose
         GlobalScope.launch(Dispatchers.Main) {
-            val response = apiService.testApiAsync().await()
-            text_view.text = response.toString()
+            try {
+                val response = apiService.testApiAsync().await()
+                text_view.text = response.toString()
+            } catch (e: NoConnectivityException) {
+                text_view.text = "No internet"
+            }
         }
     }
 
