@@ -1,4 +1,4 @@
-package com.nitin.codetime.data.response
+package com.nitin.codetime.data.network.response
 
 import com.google.gson.annotations.SerializedName
 

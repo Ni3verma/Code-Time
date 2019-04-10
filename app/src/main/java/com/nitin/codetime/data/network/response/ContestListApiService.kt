@@ -1,7 +1,6 @@
-package com.nitin.codetime.data
+package com.nitin.codetime.data.network.response
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.nitin.codetime.data.response.ContestResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

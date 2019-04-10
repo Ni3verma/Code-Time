@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
-import com.nitin.codetime.data.ContestListApiService
+import com.nitin.codetime.data.network.response.ContestListApiService
 import kotlinx.android.synthetic.main.present_contests_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
