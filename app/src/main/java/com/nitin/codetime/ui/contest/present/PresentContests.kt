@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.network.ConnectivityInterceptorImpl
@@ -46,7 +45,6 @@ class PresentContests : Fragment() {
 
 
         //just for testing purpose
-        AndroidThreeTen.init(this.context)
         GlobalScope.launch(Dispatchers.Main) {
             val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
             val dateTime = formatter.format(LocalDateTime.now())
