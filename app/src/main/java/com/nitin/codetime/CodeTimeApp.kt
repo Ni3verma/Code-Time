@@ -6,11 +6,13 @@ import com.nitin.codetime.data.db.ContestDatabase
 import com.nitin.codetime.data.network.*
 import com.nitin.codetime.data.network.repository.ContestRepository
 import com.nitin.codetime.data.network.repository.ContestRepositoryImpl
+import com.nitin.codetime.ui.contest.present.PresentContestsViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
 class CodeTimeApp : Application(), KodeinAware {
@@ -23,6 +25,7 @@ class CodeTimeApp : Application(), KodeinAware {
         bind() from singleton { ContestListApiService(instance()) }
         bind<ContestListNetworkDataSource>() with singleton { ContestListNetworkDataSourceImpl(instance()) }
         bind<ContestRepository>() with singleton { ContestRepositoryImpl(instance(), instance()) }
+        bind() from provider { PresentContestsViewModelFactory(instance()) }
     }
 
     override fun onCreate() {

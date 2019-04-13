@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
-import com.nitin.codetime.data.network.ConnectivityInterceptorImpl
 import com.nitin.codetime.data.network.ContestListApiService
-import com.nitin.codetime.data.network.ContestListNetworkDataSourceImpl
+import com.nitin.codetime.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.present_contests_fragment.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class PresentContests : Fragment() {
+class PresentContests : ScopedFragment(), KodeinAware {
+
+    override val kodein by kodein()
+    private val viewModelFactory: PresentContestsViewModelFactory by instance()
     private lateinit var viewModel: PresentContestsViewModel
 
     override fun onCreateView(
@@ -31,25 +31,17 @@ class PresentContests : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(PresentContestsViewModel::class.java)
-        // TODO: Use the ViewModel
-
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PresentContestsViewModel::class.java)
 
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
+        bindUI()
+    }
 
-        val apiService = ContestListApiService(ConnectivityInterceptorImpl(this.context!!))
-        val contestListNetworkDataSource = ContestListNetworkDataSourceImpl(apiService)
-
-        contestListNetworkDataSource.downloadedContestList.observe(this,
-            Observer { text_view.text = it?.toString() ?: "No internet connection" })
-
-
-        //just for testing purpose
-        GlobalScope.launch(Dispatchers.Main) {
-            val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
-            val dateTime = formatter.format(LocalDateTime.now())
-            contestListNetworkDataSource.fetchLiveContests("1,2,12", dateTime, dateTime)
-        }
+    private fun bindUI() = launch {
+        val contests = viewModel.contests.await()
+        contests.observe(this@PresentContests, Observer {
+            text_view.text = it?.toString()
+        })
     }
 
 }

@@ -9,8 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
 
 class ContestRepositoryImpl(
     private val contestDao: ContestDao,
@@ -31,14 +29,14 @@ class ContestRepositoryImpl(
 
     override suspend fun getLiveContests(dateTime: String): LiveData<List<ContestEntry>> {
         return withContext(Dispatchers.IO) {
-            initContests()
+            initContests(dateTime)
             return@withContext contestDao.getLiveContests(dateTime)
         }
     }
 
-    private suspend fun initContests() {
+    private suspend fun initContests(dateTime: String) {
         if (isFetchFromNetworkNeeded()) {
-            fetchLiveContests()
+            fetchLiveContests(dateTime)
         }
     }
 
@@ -48,9 +46,7 @@ class ContestRepositoryImpl(
         return true
     }
 
-    private suspend fun fetchLiveContests() {
-        val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
-        val dateTime = formatter.format(LocalDateTime.now())
+    private suspend fun fetchLiveContests(dateTime: String) {
         contestListNetworkDataSource.fetchLiveContests(
             "1,2,12",
             dateTime,
