@@ -44,9 +44,9 @@ class PresentContests : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch {
         val contests = viewModel.contests.await()
-        contests.observe(this@PresentContests, Observer {
-            it?.let {
-                adapter.submitList(it)
+        contests.observe(this@PresentContests, Observer { list ->
+            list?.let {
+                adapter.submitList(list)
             }
         })
     }
