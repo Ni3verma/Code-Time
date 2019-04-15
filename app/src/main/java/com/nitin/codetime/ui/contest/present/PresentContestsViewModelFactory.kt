@@ -2,7 +2,7 @@ package com.nitin.codetime.ui.contest.present
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.nitin.codetime.data.network.repository.ContestRepository
+import com.nitin.codetime.data.repository.ContestRepository
 
 class PresentContestsViewModelFactory(
     private val contestRepository: ContestRepository

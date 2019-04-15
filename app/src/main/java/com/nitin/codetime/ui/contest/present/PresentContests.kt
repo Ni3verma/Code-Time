@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.network.ContestListApiService
@@ -21,6 +22,7 @@ class PresentContests : ScopedFragment(), KodeinAware {
     override val kodein by kodein()
     private val viewModelFactory: PresentContestsViewModelFactory by instance()
     private lateinit var viewModel: PresentContestsViewModel
+    private lateinit var adapter: ContestListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,9 @@ class PresentContests : ScopedFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(PresentContestsViewModel::class.java)
+        adapter = ContestListAdapter()
+        recycler_view.layoutManager = LinearLayoutManager(this.context)
+        recycler_view.adapter = adapter
 
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
         bindUI()
@@ -40,7 +45,9 @@ class PresentContests : ScopedFragment(), KodeinAware {
     private fun bindUI() = launch {
         val contests = viewModel.contests.await()
         contests.observe(this@PresentContests, Observer {
-            text_view.text = it?.toString()
+            it?.let {
+                adapter.submitList(it)
+            }
         })
     }
 

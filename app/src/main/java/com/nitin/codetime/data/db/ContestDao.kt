@@ -13,5 +13,5 @@ interface ContestDao {
     fun upsertContests(contestList: List<ContestEntry>)
 
     @Query("select * from contests where startDate <= :currDataTime and endDate > :currDataTime")
-    fun getLiveContests(currDataTime: String): LiveData<List<ContestEntry>>
+    fun getLiveContests(currDataTime: String): LiveData<List<ContestShortInfoModel>>
 }

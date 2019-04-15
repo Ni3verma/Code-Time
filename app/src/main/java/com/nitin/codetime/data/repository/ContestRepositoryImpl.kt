@@ -1,8 +1,8 @@
-package com.nitin.codetime.data.network.repository
+package com.nitin.codetime.data.repository
 
 import androidx.lifecycle.LiveData
 import com.nitin.codetime.data.db.ContestDao
-import com.nitin.codetime.data.db.entity.ContestEntry
+import com.nitin.codetime.data.db.ContestShortInfoModel
 import com.nitin.codetime.data.network.ContestListNetworkDataSource
 import com.nitin.codetime.data.network.response.ContestResponse
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,7 @@ class ContestRepositoryImpl(
         }
     }
 
-    override suspend fun getLiveContests(dateTime: String): LiveData<List<ContestEntry>> {
+    override suspend fun getLiveContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
             initContests(dateTime)
             return@withContext contestDao.getLiveContests(dateTime)

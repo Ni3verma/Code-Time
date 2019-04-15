@@ -4,8 +4,8 @@ import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.nitin.codetime.data.db.ContestDatabase
 import com.nitin.codetime.data.network.*
-import com.nitin.codetime.data.network.repository.ContestRepository
-import com.nitin.codetime.data.network.repository.ContestRepositoryImpl
+import com.nitin.codetime.data.repository.ContestRepository
+import com.nitin.codetime.data.repository.ContestRepositoryImpl
 import com.nitin.codetime.ui.contest.present.PresentContestsViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware

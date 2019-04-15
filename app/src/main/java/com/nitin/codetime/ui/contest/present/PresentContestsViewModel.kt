@@ -1,7 +1,7 @@
 package com.nitin.codetime.ui.contest.present
 
-import androidx.lifecycle.ViewModel;
-import com.nitin.codetime.data.network.repository.ContestRepository
+import androidx.lifecycle.ViewModel
+import com.nitin.codetime.data.repository.ContestRepository
 import com.nitin.codetime.internal.lazyDeferred
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter

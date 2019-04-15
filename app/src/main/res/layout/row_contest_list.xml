@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:layout_width = "match_parent"
+	android:layout_height = "wrap_content"
+	style = "@style/Widget.MaterialComponents.CardView"
+	android:layout_marginBottom = "8dp"
+	android:layout_marginEnd = "8dp"
+	android:layout_marginStart = "8dp">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:padding = "8dp">
+
+		<de.hdodenhof.circleimageview.CircleImageView
+			android:id = "@+id/contest_logo"
+			android:layout_width = "70dp"
+			android:layout_height = "70dp"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent"
+			app:civ_border_width = "2dp" />
+
+		<TextView
+			android:id = "@+id/contest_res"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginStart = "16dp"
+			android:textColor = "@color/secondaryText"
+			android:textSize = "15sp"
+			app:layout_constraintBottom_toTopOf = "@+id/contest_name"
+			app:layout_constraintStart_toEndOf = "@+id/contest_logo"
+			app:layout_constraintTop_toTopOf = "@+id/contest_logo"
+			tools:text = "Hacker rank" />
+
+		<TextView
+			android:id = "@+id/contest_name"
+			android:layout_width = "250dp"
+			android:layout_height = "wrap_content"
+			android:ellipsize = "end"
+			android:scrollHorizontally = "true"
+			android:singleLine = "true"
+			android:textColor = "@color/primaryText"
+			android:textSize = "25sp"
+			app:layout_constraintBottom_toBottomOf = "@+id/contest_logo"
+			app:layout_constraintStart_toStartOf = "@+id/contest_res"
+			app:layout_constraintTop_toBottomOf = "@+id/contest_res"
+			tools:text = "Weekly code 35 by hackerrank" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

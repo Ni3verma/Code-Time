@@ -20,7 +20,6 @@ class ContestListNetworkDataSourceImpl(
             _downloadedContestList.postValue(fetchedContestList)
         } catch (e: NoConnectivityException) {
             Log.e("Nitin", "No internet connection", e)
-            _downloadedContestList.postValue(null)
         }
     }
 }
