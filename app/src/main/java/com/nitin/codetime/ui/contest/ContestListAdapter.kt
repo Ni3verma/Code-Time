@@ -1,4 +1,4 @@
-package com.nitin.codetime.ui.contest.present
+package com.nitin.codetime.ui.contest
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,13 @@ class ContestListAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContestViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ContestViewHolder(inflater.inflate(R.layout.row_contest_list, parent, false))
+        return ContestViewHolder(
+            inflater.inflate(
+                R.layout.row_contest_list,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ContestViewHolder, position: Int) {

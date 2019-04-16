@@ -1,4 +1,4 @@
-package com.nitin.codetime.ui.contest.present
+package com.nitin.codetime.ui.contest
 
 import androidx.recyclerview.widget.DiffUtil
 import com.nitin.codetime.data.db.ContestShortInfoModel

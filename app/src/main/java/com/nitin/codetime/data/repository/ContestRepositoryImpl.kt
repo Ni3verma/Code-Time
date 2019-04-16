@@ -29,14 +29,19 @@ class ContestRepositoryImpl(
 
     override suspend fun getLiveContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            initContests(dateTime)
+            if (isFetchFromNetworkNeeded()) {
+                fetchLiveContests(dateTime)
+            }
             return@withContext contestDao.getLiveContests(dateTime)
         }
     }
 
-    private suspend fun initContests(dateTime: String) {
-        if (isFetchFromNetworkNeeded()) {
-            fetchLiveContests(dateTime)
+    override suspend fun getPastContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+        return withContext(Dispatchers.IO) {
+            if (isFetchFromNetworkNeeded()) {
+                fetchPastContests(dateTime)
+            }
+            return@withContext contestDao.getPastContests(dateTime)
         }
     }
 
@@ -51,6 +56,14 @@ class ContestRepositoryImpl(
             "1,2,12",
             dateTime,
             dateTime
+        )
+    }
+
+    private suspend fun fetchPastContests(dateTime: String) {
+        contestListNetworkDataSource.fetchPastContests(
+            "1,2,12",
+            dateTime,
+            "-end"
         )
     }
 

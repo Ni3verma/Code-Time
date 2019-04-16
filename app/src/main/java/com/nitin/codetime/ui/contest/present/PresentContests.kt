@@ -11,6 +11,7 @@ import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.network.ContestListApiService
 import com.nitin.codetime.ui.base.ScopedFragment
+import com.nitin.codetime.ui.contest.ContestListAdapter
 import kotlinx.android.synthetic.main.present_contests_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware

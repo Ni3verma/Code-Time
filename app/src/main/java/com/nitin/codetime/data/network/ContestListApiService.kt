@@ -18,6 +18,13 @@ interface ContestListApiService {
         @Query(ApiConstants.END_GT) endDate: String
     ): Deferred<ContestResponse>
 
+    @GET("contest")
+    fun getPastContests(
+        @Query(ApiConstants.RESOURCE_ID_IN) resIds: String,
+        @Query(ApiConstants.END_LT) endDate: String,
+        @Query(ApiConstants.ORDER_BY) orderBy: String
+    ): Deferred<ContestResponse>
+
     companion object {
         private lateinit var API_KEY: String
         private lateinit var USER_NAME: String

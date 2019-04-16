@@ -11,4 +11,10 @@ interface ContestListNetworkDataSource {
         startDate: String,
         endDate: String
     )
+
+    suspend fun fetchPastContests(
+        resourceIds: String,
+        endDate: String,
+        orderBy: String
+    )
 }
