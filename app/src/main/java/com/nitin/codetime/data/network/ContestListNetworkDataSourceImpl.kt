@@ -14,9 +14,9 @@ class ContestListNetworkDataSourceImpl(
     override val downloadedContestList: LiveData<ContestResponse>
         get() = _downloadedContestList
 
-    override suspend fun fetchLiveContests(resourceIds: String, startDate: String, endDate: String) {
+    override suspend fun fetchLiveContests(resourceIds: String, startDate: String, endDate: String, orderBy: String) {
         try {
-            val fetchedContestList = apiService.getLiveContests(resourceIds, startDate, endDate).await()
+            val fetchedContestList = apiService.getLiveContests(resourceIds, startDate, endDate, orderBy).await()
             _downloadedContestList.postValue(fetchedContestList)
         } catch (e: NoConnectivityException) {
             Log.e("Nitin", "No internet connection", e)

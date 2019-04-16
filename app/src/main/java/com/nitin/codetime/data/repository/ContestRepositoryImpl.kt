@@ -64,7 +64,8 @@ class ContestRepositoryImpl(
         contestListNetworkDataSource.fetchLiveContests(
             "1,2,12",
             dateTime,
-            dateTime
+            dateTime,
+            "end"
         )
     }
 

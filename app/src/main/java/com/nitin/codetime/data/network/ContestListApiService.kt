@@ -15,7 +15,8 @@ interface ContestListApiService {
     fun getLiveContests(
         @Query(ApiConstants.RESOURCE_ID_IN) resIds: String,
         @Query(ApiConstants.START_LTE) startDate: String,
-        @Query(ApiConstants.END_GT) endDate: String
+        @Query(ApiConstants.END_GT) endDate: String,
+        @Query(ApiConstants.ORDER_BY) orderBy: String
     ): Deferred<ContestResponse>
 
     @GET("contest")
