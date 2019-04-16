@@ -17,4 +17,8 @@ interface ContestDao {
 
     @Query("select * from contests where endDate <= :currDataTime")
     fun getPastContests(currDataTime: String): LiveData<List<ContestShortInfoModel>>
+
+    @Query("select * from contests where startDate > :currDataTime")
+    fun getFutureContests(currDataTime: String): LiveData<List<ContestShortInfoModel>>
+
 }

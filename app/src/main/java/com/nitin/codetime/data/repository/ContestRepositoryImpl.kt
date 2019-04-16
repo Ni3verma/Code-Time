@@ -45,6 +45,15 @@ class ContestRepositoryImpl(
         }
     }
 
+    override suspend fun getFutureContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+        return withContext(Dispatchers.IO) {
+            if (isFetchFromNetworkNeeded()) {
+                fetchFutureContests(dateTime)
+            }
+            return@withContext contestDao.getFutureContests(dateTime)
+        }
+    }
+
     private fun isFetchFromNetworkNeeded(): Boolean {
         // for now it will always return true
         //TODO: implement it
@@ -64,6 +73,14 @@ class ContestRepositoryImpl(
             "1,2,12",
             dateTime,
             "-end"
+        )
+    }
+
+    private suspend fun fetchFutureContests(dateTime: String) {
+        contestListNetworkDataSource.fetchFutureContests(
+            "1,2,12",
+            dateTime,
+            "start"
         )
     }
 

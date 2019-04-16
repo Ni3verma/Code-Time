@@ -31,4 +31,13 @@ class ContestListNetworkDataSourceImpl(
             Log.e("Nitin", "No internet connection", e)
         }
     }
+
+    override suspend fun fetchFutureContests(resourceIds: String, startDate: String, orderBy: String) {
+        try {
+            val list = apiService.getFutureContests(resourceIds, startDate, orderBy).await()
+            _downloadedContestList.postValue(list)
+        } catch (e: NoConnectivityException) {
+            Log.e("Nitin", "No internet connection", e)
+        }
+    }
 }

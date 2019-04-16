@@ -6,6 +6,7 @@ import com.nitin.codetime.data.db.ContestDatabase
 import com.nitin.codetime.data.network.*
 import com.nitin.codetime.data.repository.ContestRepository
 import com.nitin.codetime.data.repository.ContestRepositoryImpl
+import com.nitin.codetime.ui.contest.future.FutureContestsViewModelFactory
 import com.nitin.codetime.ui.contest.past.PastContestsViewModelFactory
 import com.nitin.codetime.ui.contest.present.PresentContestsViewModelFactory
 import org.kodein.di.Kodein
@@ -28,6 +29,7 @@ class CodeTimeApp : Application(), KodeinAware {
         bind<ContestRepository>() with singleton { ContestRepositoryImpl(instance(), instance()) }
         bind() from provider { PresentContestsViewModelFactory(instance()) }
         bind() from provider { PastContestsViewModelFactory(instance()) }
+        bind() from provider { FutureContestsViewModelFactory(instance()) }
     }
 
     override fun onCreate() {
