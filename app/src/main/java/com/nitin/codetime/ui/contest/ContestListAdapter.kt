@@ -39,10 +39,13 @@ class ContestListAdapter :
         }
 
         private fun getLogo(res: String): Int {
-            //TODO: add proper icons
             return when (res) {
-                "codechef.com" -> R.drawable.ic_launcher_foreground
-                "topcoder.com" -> R.drawable.ic_launcher_background
+                "codechef.com" -> R.drawable.codechef_logo
+                "topcoder.com" -> R.drawable.topcoder_logo
+                "hackerrank.com" -> R.drawable.hackerrank_logo
+                "hackerearth.com" -> R.drawable.hackerearth_logo
+                "codeforces.com" -> R.drawable.codeforces_logo
+                // TODO: change with app icon
                 else -> R.drawable.ic_live
             }
         }

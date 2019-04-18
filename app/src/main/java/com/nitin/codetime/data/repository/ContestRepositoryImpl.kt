@@ -10,6 +10,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+// TODO: temp only, In future give user the ability to choose resources
+const val resIds: String = "1,2,12,73,63"
 class ContestRepositoryImpl(
     private val contestDao: ContestDao,
     private val contestListNetworkDataSource: ContestListNetworkDataSource
@@ -62,7 +64,7 @@ class ContestRepositoryImpl(
 
     private suspend fun fetchLiveContests(dateTime: String) {
         contestListNetworkDataSource.fetchLiveContests(
-            "1,2,12",
+            resIds,
             dateTime,
             dateTime,
             "end"
@@ -71,7 +73,7 @@ class ContestRepositoryImpl(
 
     private suspend fun fetchPastContests(dateTime: String) {
         contestListNetworkDataSource.fetchPastContests(
-            "1,2,12",
+            resIds,
             dateTime,
             "-end"
         )
@@ -79,7 +81,7 @@ class ContestRepositoryImpl(
 
     private suspend fun fetchFutureContests(dateTime: String) {
         contestListNetworkDataSource.fetchFutureContests(
-            "1,2,12",
+            resIds,
             dateTime,
             "start"
         )
