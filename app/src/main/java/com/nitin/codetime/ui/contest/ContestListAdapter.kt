@@ -9,7 +9,7 @@ import com.nitin.codetime.R
 import com.nitin.codetime.data.db.ContestShortInfoModel
 import kotlinx.android.synthetic.main.row_contest_list.view.*
 
-class ContestListAdapter :
+class ContestListAdapter(private val clickListener: (View, Int) -> Unit) :
     ListAdapter<ContestShortInfoModel, ContestListAdapter.ContestViewHolder>(ContestDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContestViewHolder {
@@ -24,14 +24,15 @@ class ContestListAdapter :
     }
 
     override fun onBindViewHolder(holder: ContestViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
     class ContestViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(contestInfo: ContestShortInfoModel) {
+        fun bind(contestInfo: ContestShortInfoModel, clickListener: (View, Int) -> Unit) {
             itemView.contest_logo.setImageResource(getLogo(contestInfo.resName))
             itemView.contest_res.text = getResourceName(contestInfo.resName)
             itemView.contest_name.text = contestInfo.name
+            itemView.setOnClickListener { clickListener(itemView, contestInfo.id) }
         }
 
         private fun getResourceName(name: String): String {

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
@@ -35,7 +36,7 @@ class FutureContests : ScopedFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(FutureContestsViewModel::class.java)
-        adapter = ContestListAdapter()
+        adapter = ContestListAdapter { view: View, contestId: Int -> contestClicked(view, contestId) }
         recycler_view.layoutManager = LinearLayoutManager(this.context)
         recycler_view.adapter = adapter
 
@@ -50,6 +51,11 @@ class FutureContests : ScopedFragment(), KodeinAware {
                 adapter.submitList(list)
             }
         })
+    }
+
+    private fun contestClicked(view: View, id: Int) {
+        val actionOpenContestDetail = FutureContestsDirections.actionContestDetail(id)
+        Navigation.findNavController(view).navigate(actionOpenContestDetail)
     }
 
 }

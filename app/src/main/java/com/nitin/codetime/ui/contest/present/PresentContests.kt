@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.network.ContestListApiService
 import com.nitin.codetime.ui.base.ScopedFragment
 import com.nitin.codetime.ui.contest.ContestListAdapter
+import com.nitin.codetime.ui.contest.past.PastContestsDirections
 import kotlinx.android.synthetic.main.present_contests_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -35,10 +37,9 @@ class PresentContests : ScopedFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(PresentContestsViewModel::class.java)
-        adapter = ContestListAdapter()
+        adapter = ContestListAdapter { view: View, contestId: Int -> contestClicked(view, contestId) }
         recycler_view.layoutManager = LinearLayoutManager(this.context)
         recycler_view.adapter = adapter
-
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
         bindUI()
     }
@@ -50,6 +51,11 @@ class PresentContests : ScopedFragment(), KodeinAware {
                 adapter.submitList(list)
             }
         })
+    }
+
+    private fun contestClicked(view: View, id: Int) {
+        val actionOpenContestDetail = PastContestsDirections.actionContestDetail(id)
+        Navigation.findNavController(view).navigate(actionOpenContestDetail)
     }
 
 }

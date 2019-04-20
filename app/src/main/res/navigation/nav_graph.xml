@@ -10,18 +10,32 @@
 		android:id = "@+id/past_contests"
 		android:name = "com.nitin.codetime.ui.contest.past.PastContests"
 		android:label = "Archives"
-		tools:layout = "@layout/past_contests_fragment" />
+		tools:layout = "@layout/past_contests_fragment">
+		<action android:id = "@+id/actionContestDetail"
+				app:destination = "@id/contestDetailFragment" />
+	</fragment>
 
 	<fragment
 		android:id = "@+id/present_contests"
 		android:name = "com.nitin.codetime.ui.contest.present.PresentContests"
 		android:label = "Live"
-		tools:layout = "@layout/present_contests_fragment" />
+		tools:layout = "@layout/present_contests_fragment">
+		<action android:id = "@+id/actionContestDetail"
+				app:destination = "@id/contestDetailFragment" />
+	</fragment>
 
 	<fragment
 		android:id = "@+id/future_contests"
 		android:name = "com.nitin.codetime.ui.contest.future.FutureContests"
 		android:label = "Upcoming"
-		tools:layout = "@layout/future_contests_fragment" />
+		tools:layout = "@layout/future_contests_fragment">
+		<action android:id = "@+id/actionContestDetail"
+				app:destination = "@id/contestDetailFragment" />
+	</fragment>
+	<fragment android:id = "@+id/contestDetailFragment"
+			  android:name = "com.nitin.codetime.ui.contestDetail.ContestDetailFragment"
+			  android:label = "Detail" tools:layout = "@layout/contest_detail_fragment">
+		<argument android:name = "contestId" app:argType = "integer" />
+	</fragment>
 
 </navigation>
