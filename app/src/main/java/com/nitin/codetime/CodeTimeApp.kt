@@ -9,13 +9,11 @@ import com.nitin.codetime.data.repository.ContestRepositoryImpl
 import com.nitin.codetime.ui.contest.future.FutureContestsViewModelFactory
 import com.nitin.codetime.ui.contest.past.PastContestsViewModelFactory
 import com.nitin.codetime.ui.contest.present.PresentContestsViewModelFactory
+import com.nitin.codetime.ui.contestDetail.ContestDetailViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
 
 class CodeTimeApp : Application(), KodeinAware {
     override val kodein by Kodein.lazy {
@@ -30,6 +28,7 @@ class CodeTimeApp : Application(), KodeinAware {
         bind() from provider { PresentContestsViewModelFactory(instance()) }
         bind() from provider { PastContestsViewModelFactory(instance()) }
         bind() from provider { FutureContestsViewModelFactory(instance()) }
+        bind() from factory { contestId: Int -> ContestDetailViewModelFactory(contestId, instance()) }
     }
 
     override fun onCreate() {

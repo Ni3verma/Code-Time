@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.nitin.codetime.R
+import com.nitin.codetime.internal.NoIdPassedForDetailException
+import com.nitin.codetime.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.contest_detail_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.factory
 
-class ContestDetailFragment : Fragment() {
+class ContestDetailFragment : ScopedFragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() = ContestDetailFragment()
-    }
+    override val kodein by kodein()
+    private val viewModelFactoryInstanceFactory: ((Int) -> ContestDetailViewModelFactory) by factory()
 
     private lateinit var viewModel: ContestDetailViewModel
 
@@ -26,13 +32,27 @@ class ContestDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ContestDetailViewModel::class.java)
-        // TODO: Use the ViewModel
 
         val args = arguments?.let {
             ContestDetailFragmentArgs.fromBundle(it)
         }
-        text_view.text = args?.contestId.toString()
+        val id = args?.contestId
+            ?: throw NoIdPassedForDetailException()
+
+        viewModel = ViewModelProviders.of(
+            this,
+            viewModelFactoryInstanceFactory(id)
+        ).get(ContestDetailViewModel::class.java)
+
+        bindUI()
     }
 
+    private fun bindUI() = launch(Dispatchers.Main) {
+        val contestDetail = viewModel.contestDetail.await()
+        contestDetail.observe(this@ContestDetailFragment, Observer { contest ->
+            if (contest == null) return@Observer
+
+            text_view.text = contest.toString()
+        })
+    }
 }
