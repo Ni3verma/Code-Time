@@ -1,15 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools"
+	android:id = "@+id/parent_layout"
 	android:layout_width = "match_parent"
 	android:layout_height = "match_parent"
 	tools:context = ".ui.contestDetail.ContestDetailFragment">
 
-	<TextView
-		android:id = "@+id/text_view"
+	<ImageView
+		android:id = "@+id/poster"
 		android:layout_width = "match_parent"
-		android:layout_height = "match_parent"
-		android:text = "Hello" />
+		android:layout_height = "150dp"
+		android:layout_marginTop = "8dp"
+		tools:src = "@drawable/hackerearth_poster"
+		android:scaleType = "fitXY"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toTopOf = "parent" />
 
-</FrameLayout>
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id = "@+id/website_fab"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "8dp"
+		android:layout_marginBottom = "8dp"
+		android:src = "@drawable/ic_browser"
+		app:layout_constraintBottom_toBottomOf = "@+id/poster"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintTop_toBottomOf = "@+id/poster" />
+
+	<androidx.cardview.widget.CardView
+		android:id = "@+id/cardView"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_marginLeft = "16dp"
+		android:layout_marginTop = "32dp"
+		android:layout_marginRight = "16dp"
+		app:cardCornerRadius = "8dp"
+		app:cardElevation = "2dp"
+		android:backgroundTint = "@color/colorPrimary"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toBottomOf = "@+id/website_fab">
+
+		<TextView
+			android:id = "@+id/name"
+			style = "@style/ContestDetailStyle"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:textSize = "22sp"
+			android:textStyle = "bold"
+			tools:text = "Week Code 35" />
+	</androidx.cardview.widget.CardView>
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline"
+		android:layout_width = "0dp"
+		android:layout_height = "match_parent"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_percent = "0.5" />
+
+	<androidx.cardview.widget.CardView
+		android:id = "@+id/start_date_time_cv"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:clipToPadding = "true"
+		app:cardCornerRadius = "16dp"
+		app:cardElevation = "2dp"
+		android:layout_marginTop = "32dp"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toBottomOf = "@+id/cardView">
+
+		<LinearLayout
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical">
+			<TextView
+				android:layout_width = "wrap_content"
+				android:layout_height = "30dp"
+				android:background = "@color/colorPrimary"
+				android:gravity = "center_vertical"
+				android:paddingStart = "8dp"
+				android:paddingEnd = "8dp"
+				android:text = "START DATE"
+				android:textColor = "@android:color/white"
+				android:textSize = "24sp" />
+
+			<TextView
+				android:id = "@+id/start_date"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_gravity = "center"
+				tools:text = "20 jan 2019\n09:45:78"
+				android:gravity = "center"
+				android:textSize = "16sp"
+				android:padding = "8dp"
+				android:textColor = "@android:color/black" />
+		</LinearLayout>
+	</androidx.cardview.widget.CardView>
+
+	<androidx.cardview.widget.CardView
+		android:id = "@+id/end_date_time_cv"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:clipToPadding = "true"
+		app:cardCornerRadius = "16dp"
+		app:cardElevation = "2dp"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "@+id/guideline"
+		app:layout_constraintTop_toTopOf = "@+id/start_date_time_cv">
+
+		<LinearLayout
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical">
+			<TextView
+				android:layout_width = "wrap_content"
+				android:layout_height = "30dp"
+				android:background = "@color/colorPrimary"
+				android:gravity = "center_vertical"
+				android:paddingStart = "8dp"
+				android:paddingEnd = "8dp"
+				android:text = "END DATE"
+				android:textColor = "@android:color/white"
+				android:textSize = "24sp" />
+
+			<TextView
+				android:id = "@+id/end_date"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_gravity = "center"
+				tools:text = "20 jan 2019\n09:45:78"
+				android:gravity = "center"
+				android:textSize = "16sp"
+				android:padding = "8dp"
+				android:textColor = "@android:color/black" />
+		</LinearLayout>
+	</androidx.cardview.widget.CardView>
+
+	<com.google.android.material.button.MaterialButton
+		android:id = "@+id/add_to_calender"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_marginTop = "32dp"
+		android:paddingStart = "8dp"
+		android:paddingEnd = "8dp"
+		app:cornerRadius = "8dp"
+		android:text = "Add to calender"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "parent"
+		android:textSize = "22sp"
+		app:layout_constraintTop_toBottomOf = "@+id/start_date_time_cv" />
+
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id = "@+id/share_fab"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "8dp"
+		android:layout_marginBottom = "8dp"
+		android:elevation = "8dp"
+		android:src = "@drawable/ic_share"
+		app:fabSize = "normal"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toEndOf = "parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
