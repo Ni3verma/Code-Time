@@ -1,5 +1,6 @@
 package com.nitin.codetime.ui.contestDetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.nitin.codetime.R
+import com.nitin.codetime.data.db.entity.ContestEntry
 import com.nitin.codetime.internal.NoIdPassedForDetailException
 import com.nitin.codetime.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.contest_detail_fragment.*
@@ -16,9 +19,6 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.factory
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
 
 class ContestDetailFragment : ScopedFragment(), KodeinAware {
 
@@ -57,36 +57,41 @@ class ContestDetailFragment : ScopedFragment(), KodeinAware {
             if (contest == null) return@Observer
 
             Log.d("Nitin", contest.toString())
-            poster.setImageResource(getLogo(contest.resourceEntry.name))
+            poster.setImageResource(viewModel.getLogo(contest.resourceEntry.name))
             name.text = contest.name
             updateDates(contest.startDate, contest.endDate)
+
+            setShareFabListener(contest)
+            setWebsiteFabListener(contest)
+            setAddToCalendarButtonListener(contest)
         })
     }
 
     private fun updateDates(startDateTime: String, endDateTime: String) {
-        val start = LocalDateTime
-            .parse(startDateTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
-            .split(" ")
+        val start = viewModel.getDateAndTime(startDateTime)
+        val end = viewModel.getDateAndTime(endDateTime)
 
-        val end = LocalDateTime
-            .parse(endDateTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
-            .split(" ")
-
-        start_date.text = "${start[0]}\n${start[1]}"
-        end_date.text = "${end[0]}\n${end[1]}"
+        start_date.text = "${start[0]}\n${start[1]} ${start[2]}"
+        end_date.text = "${end[0]}\n${end[1]} ${end[2]}"
     }
 
-    private fun getLogo(res: String): Int {
-        return when (res) {
-            "codechef.com" -> R.drawable.codechef_poster
-            "topcoder.com" -> R.drawable.topcoder_poster
-            "hackerrank.com" -> R.drawable.hackerrank_poster
-            "hackerearth.com" -> R.drawable.hackerearth_poster
-            "codeforces.com" -> R.drawable.codeforces_logo
-            // TODO: change with app icon
-            else -> R.drawable.ic_launcher_background
+    private fun setShareFabListener(contest: ContestEntry) {
+        share_fab.setOnClickListener {
+            val intent = viewModel.shareContest(contest.name, contest.url)
+            startActivity(Intent.createChooser(intent, "Sharing is caring"))
+        }
+    }
+
+    private fun setWebsiteFabListener(contest: ContestEntry) {
+        website_fab.setOnClickListener {
+            val intent = viewModel.openInBrower(contest.url)
+            startActivity(intent)
+        }
+    }
+
+    private fun setAddToCalendarButtonListener(contest: ContestEntry) {
+        add_to_calender.setOnClickListener {
+            Snackbar.make(it, "To be implemented", Snackbar.LENGTH_SHORT).show()
         }
     }
 }
