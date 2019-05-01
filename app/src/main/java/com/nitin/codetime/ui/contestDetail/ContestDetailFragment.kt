@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import com.nitin.codetime.R
 import com.nitin.codetime.data.db.entity.ContestEntry
 import com.nitin.codetime.internal.NoIdPassedForDetailException
@@ -91,7 +90,8 @@ class ContestDetailFragment : ScopedFragment(), KodeinAware {
 
     private fun setAddToCalendarButtonListener(contest: ContestEntry) {
         add_to_calender.setOnClickListener {
-            Snackbar.make(it, "To be implemented", Snackbar.LENGTH_SHORT).show()
+            val intent = viewModel.addToCalendar(contest)
+            startActivity(intent)
         }
     }
 }
