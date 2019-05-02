@@ -20,6 +20,7 @@
 			android:id = "@+id/contest_logo"
 			android:layout_width = "70dp"
 			android:layout_height = "70dp"
+			tools:src = "@drawable/hackerearth_logo"
 			app:layout_constraintStart_toStartOf = "parent"
 			app:layout_constraintTop_toTopOf = "parent"
 			app:civ_border_width = "2dp" />
@@ -34,7 +35,7 @@
 			app:layout_constraintBottom_toTopOf = "@+id/contest_name"
 			app:layout_constraintStart_toEndOf = "@+id/contest_logo"
 			app:layout_constraintTop_toTopOf = "@+id/contest_logo"
-			tools:text = "Hacker rank" />
+			tools:text = "Hacker Earth" />
 
 		<TextView
 			android:id = "@+id/contest_name"
@@ -48,6 +49,6 @@
 			app:layout_constraintBottom_toBottomOf = "@+id/contest_logo"
 			app:layout_constraintStart_toStartOf = "@+id/contest_res"
 			app:layout_constraintTop_toBottomOf = "@+id/contest_res"
-			tools:text = "Weekly code 35 by hackerrank" />
+			tools:text = "Week code 35" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
