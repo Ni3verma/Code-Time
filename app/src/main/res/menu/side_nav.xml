@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android = "http://schemas.android.com/apk/res/android">
+	<!--TODO: make corresponding fragments-->
+
+	<item
+		android:id = "@+id/past_contests"
+		android:icon = "@drawable/ic_archive"
+		android:title = "Past contests" />
+	<item
+		android:id = "@+id/present_contests"
+		android:icon = "@drawable/ic_live"
+		android:title = "Live contests" />
+
+	<item
+		android:id = "@+id/future_contests"
+		android:icon = "@drawable/ic_future"
+		android:title = "Future contests" />
+	<item
+		android:id = "@+id/settings"
+		android:icon = "@drawable/ic_settings"
+		android:title = "Settings" />
+
+	<item android:title = "Open source">
+		<menu>
+			<item
+				android:id = "@+id/github"
+				android:icon = "@drawable/ic_github"
+				android:title = "Github" />
+			<item
+				android:id = "@+id/credits"
+				android:icon = "@drawable/ic_credits"
+				android:title = "Credits" />
+		</menu>
+	</item>
+
+	<item android:title = "Communicate">
+		<menu>
+			<item
+				android:id = "@+id/share"
+				android:icon = "@drawable/ic_share"
+				android:title = "Share App" />
+			<item
+				android:id = "@+id/feedback"
+				android:icon = "@drawable/ic_feedback"
+				android:title = "Feedback" />
+			<item
+				android:id = "@+id/rate"
+				android:icon = "@drawable/ic_rate_app"
+				android:title = "Rate app" />
+		</menu>
+	</item>
+
+</menu>
