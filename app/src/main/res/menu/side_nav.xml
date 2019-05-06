@@ -16,7 +16,7 @@
 		android:icon = "@drawable/ic_future"
 		android:title = "Future contests" />
 	<item
-		android:id = "@+id/settings"
+		android:id = "@+id/settings_fragment"
 		android:icon = "@drawable/ic_settings"
 		android:title = "Settings" />
 

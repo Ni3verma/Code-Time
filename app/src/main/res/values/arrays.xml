@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name = "res_entries">
+		<item>Hackerrank</item>
+		<item>Topcoder</item>
+		<item>Hackerearth</item>
+		<item>Codechef</item>
+		<item>Codeforce</item>
+	</string-array>
+
+	<string-array name = "res_id_values">
+		<item>63</item>
+		<item>12</item>
+		<item>73</item>
+		<item>2</item>
+		<item>1</item>
+	</string-array>
+
+	<string-array name = "res_default_values">
+		<item>63</item>
+		<item>2</item>
+	</string-array>
+</resources>

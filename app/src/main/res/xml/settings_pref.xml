@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+	xmlns:app = "http://schemas.android.com/apk/res-auto">
+	<MultiSelectListPreference
+		app:key = "@string/pref_res_key"
+		app:title = "@string/pref_res_title"
+		app:icon = "@drawable/ic_res_pref"
+		app:summary = "@string/pref_res_summary"
+		app:entries = "@array/res_entries"
+		app:entryValues = "@array/res_id_values"
+		app:defaultValue = "@array/res_default_values" />
+</androidx.preference.PreferenceScreen>

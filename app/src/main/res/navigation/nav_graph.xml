@@ -37,5 +37,7 @@
 			  android:label = "Detail" tools:layout = "@layout/contest_detail_fragment">
 		<argument android:name = "contestId" app:argType = "integer" />
 	</fragment>
+	<fragment android:id = "@+id/settings_fragment" android:name = "com.nitin.codetime.ui.settings.SettingsFragment"
+			  android:label = "Settings" />
 
 </navigation>
