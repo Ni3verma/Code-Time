@@ -2,7 +2,7 @@
 	<string name = "app_name">Code Time</string>
 
 	<string name = "pref_res_title">Resources</string>
-	<string name = "pref_res_summary">choose platforms from whom you want to pull contests</string>
+	<string name = "pref_res_summary">choose platforms from where you want to pull contests</string>
 
 	<string name = "pref_res_key">selected_res</string>
 

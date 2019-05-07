@@ -11,8 +11,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// TODO: temp only, In future give user the ability to choose resources
-const val resIds: String = "1,2,12,73,63"
 class ContestRepositoryImpl(
     private val contestDao: ContestDao,
     private val contestListNetworkDataSource: ContestListNetworkDataSource
@@ -30,28 +28,28 @@ class ContestRepositoryImpl(
         }
     }
 
-    override suspend fun getLiveContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+    override suspend fun getLiveContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
             if (isFetchFromNetworkNeeded()) {
-                fetchLiveContests(dateTime)
+                fetchLiveContests(dateTime, resIds)
             }
             return@withContext contestDao.getLiveContests(dateTime)
         }
     }
 
-    override suspend fun getPastContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+    override suspend fun getPastContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
             if (isFetchFromNetworkNeeded()) {
-                fetchPastContests(dateTime)
+                fetchPastContests(dateTime, resIds)
             }
             return@withContext contestDao.getPastContests(dateTime)
         }
     }
 
-    override suspend fun getFutureContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+    override suspend fun getFutureContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
             if (isFetchFromNetworkNeeded()) {
-                fetchFutureContests(dateTime)
+                fetchFutureContests(dateTime, resIds)
             }
             return@withContext contestDao.getFutureContests(dateTime)
         }
@@ -69,7 +67,7 @@ class ContestRepositoryImpl(
         return true
     }
 
-    private suspend fun fetchLiveContests(dateTime: String) {
+    private suspend fun fetchLiveContests(dateTime: String, resIds: String) {
         contestListNetworkDataSource.fetchLiveContests(
             resIds,
             dateTime,
@@ -78,7 +76,7 @@ class ContestRepositoryImpl(
         )
     }
 
-    private suspend fun fetchPastContests(dateTime: String) {
+    private suspend fun fetchPastContests(dateTime: String, resIds: String) {
         contestListNetworkDataSource.fetchPastContests(
             resIds,
             dateTime,
@@ -86,7 +84,7 @@ class ContestRepositoryImpl(
         )
     }
 
-    private suspend fun fetchFutureContests(dateTime: String) {
+    private suspend fun fetchFutureContests(dateTime: String, resIds: String) {
         contestListNetworkDataSource.fetchFutureContests(
             resIds,
             dateTime,
