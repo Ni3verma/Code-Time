@@ -4,6 +4,8 @@ import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.nitin.codetime.data.db.ContestDatabase
 import com.nitin.codetime.data.network.*
+import com.nitin.codetime.data.provider.PreferenceProvider
+import com.nitin.codetime.data.provider.PreferenceProviderImpl
 import com.nitin.codetime.data.provider.ResourceIdProvider
 import com.nitin.codetime.data.provider.ResourceIdProviderImpl
 import com.nitin.codetime.data.repository.ContestRepository
@@ -28,6 +30,7 @@ class CodeTimeApp : Application(), KodeinAware {
         bind<ContestListNetworkDataSource>() with singleton { ContestListNetworkDataSourceImpl(instance()) }
         bind<ContestRepository>() with singleton { ContestRepositoryImpl(instance(), instance()) }
         bind<ResourceIdProvider>() with singleton { ResourceIdProviderImpl(instance()) }
+        bind<PreferenceProvider>() with singleton { PreferenceProviderImpl(instance()) }
         bind() from provider { PresentContestsViewModelFactory(instance(), instance()) }
         bind() from provider { PastContestsViewModelFactory(instance(), instance()) }
         bind() from provider { FutureContestsViewModelFactory(instance(), instance()) }

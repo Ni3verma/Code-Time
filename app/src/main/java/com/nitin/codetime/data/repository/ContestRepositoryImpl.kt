@@ -30,10 +30,8 @@ class ContestRepositoryImpl(
 
     override suspend fun getLiveContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            if (isFetchFromNetworkNeeded()) {
-                fetchLiveContests(dateTime, resIds)
-            }
-            return@withContext contestDao.getLiveContests(dateTime)
+            fetchLiveContests(dateTime, resIds)
+            contestDao.getLiveContests(dateTime)
         }
     }
 
@@ -52,6 +50,18 @@ class ContestRepositoryImpl(
                 fetchFutureContests(dateTime, resIds)
             }
             return@withContext contestDao.getFutureContests(dateTime)
+        }
+    }
+
+    override suspend fun getLocalLiveContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+        return withContext(Dispatchers.IO) {
+            contestDao.getLiveContests(dateTime)
+        }
+    }
+
+    override suspend fun deleteLiveContests(dateTime: String) {
+        withContext(Dispatchers.IO) {
+            contestDao.deleteLiveContests(dateTime)
         }
     }
 

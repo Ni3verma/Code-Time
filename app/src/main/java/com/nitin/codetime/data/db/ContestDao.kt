@@ -24,4 +24,7 @@ interface ContestDao {
     @Query("select * from contests where cid=:id")
     fun getContestById(id: Int): LiveData<ContestEntry>
 
+    @Query("DELETE from contests where startDate <= :currDataTime and endDate > :currDataTime")
+    fun deleteLiveContests(currDataTime: String)
+
 }
