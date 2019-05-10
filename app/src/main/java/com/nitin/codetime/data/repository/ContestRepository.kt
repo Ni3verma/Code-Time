@@ -10,8 +10,10 @@ interface ContestRepository {
     suspend fun getFutureContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>>
 
     suspend fun getLocalLiveContests(dateTime: String): LiveData<List<ContestShortInfoModel>>
+    suspend fun getLocalPastContests(dateTime: String): LiveData<List<ContestShortInfoModel>>
 
     suspend fun deleteLiveContests(dateTime: String)
+    suspend fun deletePastContests(dateTime: String)
 
     suspend fun getContestDetailById(id: Int): LiveData<ContestEntry>
 }

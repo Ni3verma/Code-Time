@@ -37,9 +37,7 @@ class ContestRepositoryImpl(
 
     override suspend fun getPastContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            if (isFetchFromNetworkNeeded()) {
-                fetchPastContests(dateTime, resIds)
-            }
+            fetchPastContests(dateTime, resIds)
             return@withContext contestDao.getPastContests(dateTime)
         }
     }
@@ -59,9 +57,21 @@ class ContestRepositoryImpl(
         }
     }
 
+    override suspend fun getLocalPastContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+        return withContext(Dispatchers.IO) {
+            contestDao.getPastContests(dateTime)
+        }
+    }
+
     override suspend fun deleteLiveContests(dateTime: String) {
         withContext(Dispatchers.IO) {
             contestDao.deleteLiveContests(dateTime)
+        }
+    }
+
+    override suspend fun deletePastContests(dateTime: String) {
+        withContext(Dispatchers.IO) {
+            contestDao.deletePastContests(dateTime)
         }
     }
 
