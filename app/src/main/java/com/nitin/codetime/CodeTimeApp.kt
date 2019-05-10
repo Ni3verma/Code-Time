@@ -28,7 +28,7 @@ class CodeTimeApp : Application(), KodeinAware {
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { ContestListApiService(instance()) }
         bind<ContestListNetworkDataSource>() with singleton { ContestListNetworkDataSourceImpl(instance()) }
-        bind<ContestRepository>() with singleton { ContestRepositoryImpl(instance(), instance()) }
+        bind<ContestRepository>() with singleton { ContestRepositoryImpl(instance(), instance(), instance()) }
         bind<ResourceIdProvider>() with singleton { ResourceIdProviderImpl(instance()) }
         bind<PreferenceProvider>() with singleton { PreferenceProviderImpl(instance()) }
         bind() from provider { PresentContestsViewModelFactory(instance(), instance()) }
