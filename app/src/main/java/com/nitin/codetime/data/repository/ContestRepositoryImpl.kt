@@ -9,15 +9,15 @@ import com.nitin.codetime.data.network.response.ContestResponse
 import com.nitin.codetime.data.provider.PreferenceProvider
 import com.nitin.codetime.internal.InvalidContestTypeCodeException
 import com.nitin.codetime.ui.settings.SettingsFragment.Companion.RELOAD_FUTURE_CONTESTS
+import com.nitin.codetime.ui.settings.SettingsFragment.Companion.RELOAD_LIVE_CONTESTS
 import com.nitin.codetime.ui.settings.SettingsFragment.Companion.RELOAD_PAST_CONTESTS
-import com.nitin.codetime.ui.settings.SettingsFragment.Companion.RELOAD_PRESENT_CONTESTS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 const val PAST_CONTEST_TYPE_CODE = -1
-const val PRESENT_CONTEST_TYPE_CODE = 0
+const val LIVE_CONTEST_TYPE_CODE = 0
 const val FUTURE_CONTEST_TYPE_CODE = 1
 
 class ContestRepositoryImpl(
@@ -51,10 +51,10 @@ class ContestRepositoryImpl(
 
     override suspend fun getLiveContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            if (isFetchFromNetworkNeeded(PRESENT_CONTEST_TYPE_CODE)) {
+            if (isFetchFromNetworkNeeded(LIVE_CONTEST_TYPE_CODE)) {
                 deleteLiveContests(dateTime)
                 fetchLiveContests(dateTime, resIds)
-                preferenceProvider.editBooleanPref(RELOAD_PRESENT_CONTESTS, false)
+                preferenceProvider.editBooleanPref(RELOAD_LIVE_CONTESTS, false)
             }
             return@withContext contestDao.getLiveContests(dateTime)
         }
@@ -71,33 +71,15 @@ class ContestRepositoryImpl(
         }
     }
 
-    override suspend fun getLocalLiveContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
-        return withContext(Dispatchers.IO) {
-            contestDao.getLiveContests(dateTime)
-        }
-    }
-
-    override suspend fun getLocalPastContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
-        return withContext(Dispatchers.IO) {
-            contestDao.getPastContests(dateTime)
-        }
-    }
-
-    override suspend fun getLocalFutureContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
-        return withContext(Dispatchers.IO) {
-            contestDao.getFutureContests(dateTime)
+    override suspend fun deletePastContests(dateTime: String) {
+        withContext(Dispatchers.IO) {
+            contestDao.deletePastContests(dateTime)
         }
     }
 
     override suspend fun deleteLiveContests(dateTime: String) {
         withContext(Dispatchers.IO) {
             contestDao.deleteLiveContests(dateTime)
-        }
-    }
-
-    override suspend fun deletePastContests(dateTime: String) {
-        withContext(Dispatchers.IO) {
-            contestDao.deletePastContests(dateTime)
         }
     }
 
@@ -116,10 +98,18 @@ class ContestRepositoryImpl(
     private fun isFetchFromNetworkNeeded(contestTypeCode: Int): Boolean {
         return when (contestTypeCode) {
             PAST_CONTEST_TYPE_CODE -> preferenceProvider.getBooleanPref(RELOAD_PAST_CONTESTS, true)
-            PRESENT_CONTEST_TYPE_CODE -> preferenceProvider.getBooleanPref(RELOAD_PRESENT_CONTESTS, true)
+            LIVE_CONTEST_TYPE_CODE -> preferenceProvider.getBooleanPref(RELOAD_LIVE_CONTESTS, true)
             FUTURE_CONTEST_TYPE_CODE -> preferenceProvider.getBooleanPref(RELOAD_FUTURE_CONTESTS, true)
             else -> throw InvalidContestTypeCodeException()
         }
+    }
+
+    private suspend fun fetchPastContests(dateTime: String, resIds: String) {
+        contestListNetworkDataSource.fetchPastContests(
+            resIds,
+            dateTime,
+            "-end"
+        )
     }
 
     private suspend fun fetchLiveContests(dateTime: String, resIds: String) {
@@ -128,14 +118,6 @@ class ContestRepositoryImpl(
             dateTime,
             dateTime,
             "end"
-        )
-    }
-
-    private suspend fun fetchPastContests(dateTime: String, resIds: String) {
-        contestListNetworkDataSource.fetchPastContests(
-            resIds,
-            dateTime,
-            "-end"
         )
     }
 

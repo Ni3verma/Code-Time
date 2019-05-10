@@ -14,8 +14,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         pref.setOnPreferenceChangeListener { preference, newValue ->
             if (preference?.key == getString(R.string.pref_res_key)) {
                 PreferenceManager.getDefaultSharedPreferences(this.context).edit {
-                    this.putBoolean(RELOAD_PRESENT_CONTESTS, true)
                     this.putBoolean(RELOAD_PAST_CONTESTS, true)
+                    this.putBoolean(RELOAD_LIVE_CONTESTS, true)
                     this.putBoolean(RELOAD_FUTURE_CONTESTS, true)
                     this.commit()
                 }
@@ -25,8 +25,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
-        const val RELOAD_PRESENT_CONTESTS = "invalidate_present_contests"
         const val RELOAD_PAST_CONTESTS = "invalidate_past_contests"
+        const val RELOAD_LIVE_CONTESTS = "invalidate_present_contests"
         const val RELOAD_FUTURE_CONTESTS = "invalidate_future_contests"
     }
 }
