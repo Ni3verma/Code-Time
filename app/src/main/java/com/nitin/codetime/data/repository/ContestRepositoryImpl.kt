@@ -38,6 +38,17 @@ class ContestRepositoryImpl(
         }
     }
 
+    override suspend fun getPastContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
+        return withContext(Dispatchers.IO) {
+            if (isFetchFromNetworkNeeded(PAST_CONTEST_TYPE_CODE)) {
+                deletePastContests(dateTime)
+                fetchPastContests(dateTime, resIds)
+                preferenceProvider.editBooleanPref(RELOAD_PAST_CONTESTS, false)
+            }
+            return@withContext contestDao.getPastContests(dateTime)
+        }
+    }
+
     override suspend fun getLiveContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
             if (isFetchFromNetworkNeeded(PRESENT_CONTEST_TYPE_CODE)) {
@@ -46,13 +57,6 @@ class ContestRepositoryImpl(
                 preferenceProvider.editBooleanPref(RELOAD_PRESENT_CONTESTS, false)
             }
             return@withContext contestDao.getLiveContests(dateTime)
-        }
-    }
-
-    override suspend fun getPastContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
-        return withContext(Dispatchers.IO) {
-            fetchPastContests(dateTime, resIds)
-            return@withContext contestDao.getPastContests(dateTime)
         }
     }
 

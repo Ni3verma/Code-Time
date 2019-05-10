@@ -1,14 +1,9 @@
 package com.nitin.codetime.ui.contest.past
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.nitin.codetime.data.db.ContestShortInfoModel
 import com.nitin.codetime.data.provider.ResourceIdProvider
 import com.nitin.codetime.data.repository.ContestRepository
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import com.nitin.codetime.internal.lazyDeferred
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -18,24 +13,9 @@ class PastContestsViewModel(
 ) : ViewModel() {
     private val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
-    suspend fun fetchPastContests(): LiveData<List<ContestShortInfoModel>> {
+    val contests by lazyDeferred {
         val dateTime = formatter.format(LocalDateTime.now())
         val resIds = resourceIdProvider.getResourceIds()
-        return contestRepository.getPastContests(dateTime, resIds)
-    }
-
-
-    suspend fun deleteContests() {
-        GlobalScope.launch {
-            val dateTime = formatter.format(LocalDateTime.now())
-            contestRepository.deletePastContests(dateTime)
-        }
-    }
-
-    suspend fun getLocalContestsAsync(): Deferred<LiveData<List<ContestShortInfoModel>>> {
-        return GlobalScope.async {
-            val dateTime = formatter.format(LocalDateTime.now())
-            contestRepository.getLocalPastContests(dateTime)
-        }
+        contestRepository.getPastContests(dateTime, resIds)
     }
 }
