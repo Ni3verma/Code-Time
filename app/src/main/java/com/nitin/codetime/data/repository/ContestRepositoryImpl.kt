@@ -63,6 +63,12 @@ class ContestRepositoryImpl(
         }
     }
 
+    override suspend fun getLocalFutureContests(dateTime: String): LiveData<List<ContestShortInfoModel>> {
+        return withContext(Dispatchers.IO) {
+            contestDao.getFutureContests(dateTime)
+        }
+    }
+
     override suspend fun deleteLiveContests(dateTime: String) {
         withContext(Dispatchers.IO) {
             contestDao.deleteLiveContests(dateTime)
@@ -72,6 +78,12 @@ class ContestRepositoryImpl(
     override suspend fun deletePastContests(dateTime: String) {
         withContext(Dispatchers.IO) {
             contestDao.deletePastContests(dateTime)
+        }
+    }
+
+    override suspend fun deleteFutureContests(dateTime: String) {
+        withContext(Dispatchers.IO) {
+            contestDao.deleteFutureContests(dateTime)
         }
     }
 

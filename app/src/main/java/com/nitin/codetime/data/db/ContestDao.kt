@@ -29,4 +29,7 @@ interface ContestDao {
 
     @Query("DELETE from contests where endDate <= :currDataTime")
     fun deletePastContests(currDataTime: String)
+
+    @Query("DELETE from contests where startDate > :currDataTime")
+    fun deleteFutureContests(currDataTime: String)
 }
