@@ -40,8 +40,12 @@ class ContestRepositoryImpl(
 
     override suspend fun getLiveContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            fetchLiveContests(dateTime, resIds)
-            contestDao.getLiveContests(dateTime)
+            if (isFetchFromNetworkNeeded(PRESENT_CONTEST_TYPE_CODE)) {
+                deleteLiveContests(dateTime)
+                fetchLiveContests(dateTime, resIds)
+                preferenceProvider.editBooleanPref(RELOAD_PRESENT_CONTESTS, false)
+            }
+            return@withContext contestDao.getLiveContests(dateTime)
         }
     }
 
