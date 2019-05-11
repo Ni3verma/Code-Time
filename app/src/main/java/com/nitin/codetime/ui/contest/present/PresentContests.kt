@@ -44,7 +44,7 @@ class PresentContests : ScopedFragment(), KodeinAware {
         viewModel.getContests()
         bindUI()
         fab_refresh.setOnClickListener {
-            //refresh the data
+            viewModel.getContests(true)
         }
     }
 

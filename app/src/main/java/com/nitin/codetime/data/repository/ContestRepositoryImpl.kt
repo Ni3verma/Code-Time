@@ -38,9 +38,13 @@ class ContestRepositoryImpl(
         }
     }
 
-    override suspend fun getPastContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
+    override suspend fun getPastContests(
+        dateTime: String,
+        resIds: String,
+        forceRefresh: Boolean
+    ): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            if (isFetchFromNetworkNeeded(PAST_CONTEST_TYPE_CODE)) {
+            if (forceRefresh || isFetchFromNetworkNeeded(PAST_CONTEST_TYPE_CODE)) {
                 deletePastContests(dateTime)
                 fetchPastContests(dateTime, resIds)
                 preferenceProvider.editBooleanPref(RELOAD_PAST_CONTESTS, false)
@@ -49,9 +53,13 @@ class ContestRepositoryImpl(
         }
     }
 
-    override suspend fun getLiveContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
+    override suspend fun getLiveContests(
+        dateTime: String,
+        resIds: String,
+        forceRefresh: Boolean
+    ): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            if (isFetchFromNetworkNeeded(LIVE_CONTEST_TYPE_CODE)) {
+            if (forceRefresh || isFetchFromNetworkNeeded(LIVE_CONTEST_TYPE_CODE)) {
                 deleteLiveContests(dateTime)
                 fetchLiveContests(dateTime, resIds)
                 preferenceProvider.editBooleanPref(RELOAD_LIVE_CONTESTS, false)
@@ -60,9 +68,13 @@ class ContestRepositoryImpl(
         }
     }
 
-    override suspend fun getFutureContests(dateTime: String, resIds: String): LiveData<List<ContestShortInfoModel>> {
+    override suspend fun getFutureContests(
+        dateTime: String,
+        resIds: String,
+        forceRefresh: Boolean
+    ): LiveData<List<ContestShortInfoModel>> {
         return withContext(Dispatchers.IO) {
-            if (isFetchFromNetworkNeeded(FUTURE_CONTEST_TYPE_CODE)) {
+            if (forceRefresh || isFetchFromNetworkNeeded(FUTURE_CONTEST_TYPE_CODE)) {
                 deleteFutureContests(dateTime)
                 fetchFutureContests(dateTime, resIds)
                 preferenceProvider.editBooleanPref(RELOAD_FUTURE_CONTESTS, false)

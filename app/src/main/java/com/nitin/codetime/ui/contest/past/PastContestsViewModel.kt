@@ -22,11 +22,11 @@ class PastContestsViewModel(
     val contests: LiveData<List<ContestShortInfoModel>>
         get() = _contests
 
-    fun getContests() {
+    fun getContests(forceRefresh: Boolean = false) {
         viewModelScope.launch {
             val dateTime = formatter.format(LocalDateTime.now())
             val resIds = resourceIdProvider.getResourceIds()
-            val contestsLiveData = contestRepository.getPastContests(dateTime, resIds)
+            val contestsLiveData = contestRepository.getPastContests(dateTime, resIds, forceRefresh)
 
             contestsLiveData.observeForever {
                 Log.d("Nitin", "list size in vm=${contestsLiveData.value?.size}")
