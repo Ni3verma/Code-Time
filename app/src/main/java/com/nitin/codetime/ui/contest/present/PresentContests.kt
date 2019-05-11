@@ -42,6 +42,9 @@ class PresentContests : ScopedFragment(), KodeinAware {
         recycler_view.adapter = adapter
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
         bindUI()
+        fab_refresh.setOnClickListener {
+            //refresh the data
+        }
     }
 
     private fun bindUI() = launch {
@@ -62,6 +65,10 @@ class PresentContests : ScopedFragment(), KodeinAware {
     private fun contestClicked(view: View, id: Int) {
         val actionOpenContestDetail = PastContestsDirections.actionContestDetail(id)
         Navigation.findNavController(view).navigate(actionOpenContestDetail)
+    }
+
+    public fun refreshContests(view: View) {
+
     }
 
 }

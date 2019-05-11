@@ -29,4 +29,10 @@
 		<item name = "android:background">@drawable/circular_background</item>
 	</style>
 
+	<style name = "refreshFabStyle">
+		<item name = "android:src">@drawable/ic_refresh</item>
+		<item name = "android:layout_margin">8dp</item>
+		<item name = "android:layout_gravity">bottom|end</item>
+	</style>
+
 </resources>

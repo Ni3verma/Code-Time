@@ -42,6 +42,9 @@ class FutureContests : ScopedFragment(), KodeinAware {
 
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
         bindUI()
+        fab_refresh.setOnClickListener {
+            //refresh the data
+        }
     }
 
     private fun bindUI() = launch {
