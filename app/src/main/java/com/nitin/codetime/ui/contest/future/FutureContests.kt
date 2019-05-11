@@ -14,7 +14,6 @@ import com.nitin.codetime.data.network.ContestListApiService
 import com.nitin.codetime.ui.base.ScopedFragment
 import com.nitin.codetime.ui.contest.ContestListAdapter
 import kotlinx.android.synthetic.main.present_contests_fragment.*
-import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -39,14 +38,14 @@ class FutureContests : ScopedFragment(), KodeinAware {
         adapter = ContestListAdapter { view: View, contestId: Int -> contestClicked(view, contestId) }
         recycler_view.layoutManager = LinearLayoutManager(this.context)
         recycler_view.adapter = adapter
-
         ContestListApiService.initApi(BuildConfig.ApiKey, BuildConfig.UserName)
+
+        viewModel.getContests()
         bindUI()
     }
 
-    private fun bindUI() = launch {
-        val contests = viewModel.contests.await()
-        contests.observe(this@FutureContests, Observer { list ->
+    private fun bindUI() {
+        viewModel.contests.observe(this@FutureContests, Observer { list ->
             list?.let {
                 adapter.submitList(list)
             }
