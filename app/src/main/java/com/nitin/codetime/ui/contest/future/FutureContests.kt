@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.network.ContestListApiService
+import com.nitin.codetime.ui.MainActivity
 import com.nitin.codetime.ui.base.ScopedFragment
 import com.nitin.codetime.ui.contest.ContestListAdapter
 import kotlinx.android.synthetic.main.present_contests_fragment.*
@@ -34,6 +35,8 @@ class FutureContests : ScopedFragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as MainActivity).setBottomNavVisibility(View.VISIBLE)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(FutureContestsViewModel::class.java)
         adapter = ContestListAdapter { view: View, contestId: Int -> contestClicked(view, contestId) }
         recycler_view.layoutManager = LinearLayoutManager(this.context)

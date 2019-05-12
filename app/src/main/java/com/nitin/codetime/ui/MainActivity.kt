@@ -32,4 +32,8 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
+
+    fun setBottomNavVisibility(visibility: Int) {
+        bottom_nav.visibility = visibility
+    }
 }

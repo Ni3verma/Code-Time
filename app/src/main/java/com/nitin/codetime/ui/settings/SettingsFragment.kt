@@ -1,15 +1,19 @@
 package com.nitin.codetime.ui.settings
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.content.edit
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.nitin.codetime.R
+import com.nitin.codetime.ui.MainActivity
 
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_pref, rootKey)
+        (activity as MainActivity).setBottomNavVisibility(View.GONE)
+
         val pref = findPreference("selected_res") as MultiSelectListPreference
         pref.setOnPreferenceChangeListener { preference, newValue ->
             if (preference?.key == getString(R.string.pref_res_key)) {

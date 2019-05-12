@@ -8,9 +8,10 @@
 
 	<ImageView
 		android:id = "@+id/logo"
-		android:layout_width = "150dp"
-		android:layout_height = "150dp"
-		android:src = "@mipmap/ic_launcher_round"
+		android:layout_width = "match_parent"
+		android:layout_height = "180dp"
+		android:scaleType = "centerCrop"
+		android:src = "@drawable/nav_bar_header"
 		android:contentDescription = "@string/cd_logo_iv"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "parent"
@@ -40,6 +41,69 @@
 		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintEnd_toEndOf = "parent"
 		android:layout_marginStart = "8dp"
-		android:layout_marginEnd = "8dp" />
+		android:layout_marginEnd = "8dp"
+		android:layout_marginBottom = "8dp" />
+	<ScrollView
+		android:layout_width = "match_parent"
+		android:layout_height = "0dp"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintTop_toBottomOf = "@id/description">
+
+		<LinearLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical">
+
+			<com.nitin.codetime.ui.views.MyCard
+				android:id = "@+id/version"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:option_text = "version : 1.0"
+				app:option_icon = "@drawable/ic_info"
+				android:layout_marginTop = "16dp"
+				android:layout_marginStart = "8dp"
+				android:layout_marginEnd = "8dp" />
+
+			<com.nitin.codetime.ui.views.MyCard
+				android:id = "@+id/developer"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:option_text = "Developer : Nitin verma"
+				app:option_icon = "@drawable/ic_person"
+				android:layout_marginTop = "8dp"
+				android:layout_marginStart = "8dp"
+				android:layout_marginEnd = "8dp" />
+
+			<com.nitin.codetime.ui.views.MyCard
+				android:id = "@+id/repository"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:option_text = "Github Repository"
+				app:option_icon = "@drawable/ic_github"
+				android:layout_marginTop = "8dp"
+				android:layout_marginStart = "8dp"
+				android:layout_marginEnd = "8dp" />
+			<com.nitin.codetime.ui.views.MyCard
+				android:id = "@+id/contributor"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:option_text = "Contributors"
+				app:option_icon = "@drawable/ic_people"
+				android:layout_marginTop = "8dp"
+				android:layout_marginStart = "8dp"
+				android:layout_marginEnd = "8dp" />
+
+			<com.nitin.codetime.ui.views.MyCard
+				android:id = "@+id/licence"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:option_text = "Licence"
+				app:option_icon = "@drawable/ic_lock"
+				android:layout_marginTop = "8dp"
+				android:layout_marginStart = "8dp"
+				android:layout_marginEnd = "8dp" />
+		</LinearLayout>
+	</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

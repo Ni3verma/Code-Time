@@ -39,5 +39,7 @@
 	</fragment>
 	<fragment android:id = "@+id/settings_fragment" android:name = "com.nitin.codetime.ui.settings.SettingsFragment"
 			  android:label = "Settings" />
+	<fragment android:id = "@+id/github" android:name = "com.nitin.codetime.ui.GithubFragment"
+			  android:label = "Github" tools:layout = "@layout/fragment_github" />
 
 </navigation>
