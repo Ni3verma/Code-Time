@@ -1,6 +1,5 @@
 package com.nitin.codetime.ui.contest.past
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +21,16 @@ class PastContestsViewModel(
     val contests: LiveData<List<ContestShortInfoModel>>
         get() = _contests
 
+    private val _networkState = MutableLiveData<Int>()
+    val networkState: LiveData<Int>
+        get() = _networkState
+
+    init {
+        contestRepository.networkState.observeForever { state ->
+            _networkState.postValue(state)
+        }
+    }
+
     fun getContests(forceRefresh: Boolean = false) {
         viewModelScope.launch {
             val dateTime = formatter.format(LocalDateTime.now())
@@ -29,7 +38,6 @@ class PastContestsViewModel(
             val contestsLiveData = contestRepository.getPastContests(dateTime, resIds, forceRefresh)
 
             contestsLiveData.observeForever {
-                Log.d("Nitin", "list size in vm=${contestsLiveData.value?.size}")
                 _contests.value = it
             }
         }

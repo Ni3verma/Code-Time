@@ -5,6 +5,9 @@ import com.nitin.codetime.data.db.ContestShortInfoModel
 import com.nitin.codetime.data.db.entity.ContestEntry
 
 interface ContestRepository {
+
+    val networkState: LiveData<Int>
+
     suspend fun getPastContests(
         dateTime: String,
         resIds: String,

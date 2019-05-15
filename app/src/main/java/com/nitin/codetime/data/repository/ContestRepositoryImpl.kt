@@ -1,6 +1,7 @@
 package com.nitin.codetime.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nitin.codetime.data.db.ContestDao
 import com.nitin.codetime.data.db.ContestShortInfoModel
 import com.nitin.codetime.data.db.entity.ContestEntry
@@ -26,9 +27,16 @@ class ContestRepositoryImpl(
     private val preferenceProvider: PreferenceProvider
 ) : ContestRepository {
 
+    private val _networkState = MutableLiveData<Int>()
+    override val networkState: LiveData<Int>
+        get() = _networkState
+
     init {
         contestListNetworkDataSource.downloadedContestList.observeForever { newData ->
             persistFetchedData(newData)
+        }
+        contestListNetworkDataSource.networkState.observeForever { state ->
+            _networkState.postValue(state)
         }
     }
 

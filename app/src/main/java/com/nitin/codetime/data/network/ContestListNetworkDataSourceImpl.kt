@@ -9,17 +9,21 @@ import com.nitin.codetime.internal.NoConnectivityException
 class ContestListNetworkDataSourceImpl(
     private val apiService: ContestListApiService
 ) : ContestListNetworkDataSource {
-    private val _downloadedContestList = MutableLiveData<ContestResponse>()
 
+    private val _downloadedContestList = MutableLiveData<ContestResponse>()
     override val downloadedContestList: LiveData<ContestResponse>
         get() = _downloadedContestList
+
+    private val _networkState = MutableLiveData<Int>()
+    override val networkState: LiveData<Int>
+        get() = _networkState
 
     override suspend fun fetchLiveContests(resourceIds: String, startDate: String, endDate: String, orderBy: String) {
         try {
             val fetchedContestList = apiService.getLiveContests(resourceIds, startDate, endDate, orderBy).await()
             _downloadedContestList.postValue(fetchedContestList)
         } catch (e: NoConnectivityException) {
-            Log.e("Nitin", "No internet connection", e)
+            onInternetConnectionError(e)
         }
     }
 
@@ -28,7 +32,7 @@ class ContestListNetworkDataSourceImpl(
             val list = apiService.getPastContests(resourceIds, endDate, orderBy).await()
             _downloadedContestList.postValue(list)
         } catch (e: NoConnectivityException) {
-            Log.e("Nitin", "No internet connection", e)
+            onInternetConnectionError(e)
         }
     }
 
@@ -37,7 +41,12 @@ class ContestListNetworkDataSourceImpl(
             val list = apiService.getFutureContests(resourceIds, startDate, orderBy).await()
             _downloadedContestList.postValue(list)
         } catch (e: NoConnectivityException) {
-            Log.e("Nitin", "No internet connection", e)
+            onInternetConnectionError(e)
         }
+    }
+
+    override fun onInternetConnectionError(error: NoConnectivityException) {
+        Log.e("Nitin", "No internet connection", error)
+        _networkState.postValue(0)
     }
 }

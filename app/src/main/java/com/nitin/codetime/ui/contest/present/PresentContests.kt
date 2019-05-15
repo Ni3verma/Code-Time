@@ -1,13 +1,16 @@
 package com.nitin.codetime.ui.contest.present
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.nitin.codetime.BuildConfig
 import com.nitin.codetime.R
 import com.nitin.codetime.data.network.ContestListApiService
@@ -52,9 +55,24 @@ class PresentContests : ScopedFragment(), KodeinAware {
     }
 
     private fun bindUI() {
+        observeNetworkState()
         viewModel.contests.observe(this@PresentContests, Observer { list ->
             list?.let {
                 adapter.submitList(list)
+            }
+        })
+    }
+
+    private fun observeNetworkState() {
+        viewModel.networkState.observe(this@PresentContests, Observer { state ->
+            if (state == 0) {
+                Log.d("Nitin", "No internet connection")
+                Snackbar.make(recycler_view, "No internet connection", Snackbar.LENGTH_LONG)
+                    .setAction("retry") {
+                        viewModel.getContests(true)
+                    }
+                    .setActionTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                    .show()
             }
         })
     }
@@ -63,9 +81,4 @@ class PresentContests : ScopedFragment(), KodeinAware {
         val actionOpenContestDetail = PastContestsDirections.actionContestDetail(id)
         Navigation.findNavController(view).navigate(actionOpenContestDetail)
     }
-
-    public fun refreshContests(view: View) {
-
-    }
-
 }
