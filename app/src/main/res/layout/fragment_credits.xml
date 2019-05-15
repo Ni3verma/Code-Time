@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android = "http://schemas.android.com/apk/res/android" xmlns:app = "http://schemas.android.com/apk/res-auto"
+	android:orientation = "vertical"
+	android:layout_width = "match_parent"
+	android:layout_height = "wrap_content"
+	android:layout_marginStart = "8dp"
+	android:layout_marginEnd = "8dp"
+	android:layout_marginTop = "8dp">
+
+	<com.nitin.codetime.ui.views.CreditsRow
+		android:id = "@+id/clist"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		app:option_logo = "@mipmap/ic_launcher_round"
+		app:option_name = "Clist"
+		app:option_description = "This API is the core of this app. Inspired by it, this app is open source"
+		android:layout_marginBottom = "8dp" />
+
+	<com.nitin.codetime.ui.views.CreditsRow
+		android:id = "@+id/hdodenhof"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		app:option_logo = "@drawable/ic_github"
+		app:option_name = "Henning Dodenhof"
+		app:option_description = "All of the circular images that you see in this app are beause of his open source library on github."
+		android:layout_marginBottom = "8dp" />
+
+	<com.nitin.codetime.ui.views.CreditsRow
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		app:option_logo = "@drawable/stackoverflow_logo"
+		app:option_name = "Stackoverflow"
+		app:option_description = "99.9% of the questions that you face are already answered there. Awesome community!"
+		android:layout_marginBottom = "8dp" />
+
+	<com.nitin.codetime.ui.views.CreditsRow
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		app:option_logo = "@drawable/udacity_logo"
+		app:option_name = "Udacity"
+		app:option_description = "They provide free android basics course in collaboration with google. Best learning material and thank to Google and udacity for Android developer scholarship."
+		android:layout_marginBottom = "8dp" />
+
+	<com.nitin.codetime.ui.views.CreditsRow
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		app:option_logo = "@drawable/medium_logo"
+		app:option_name = "Medium"
+		app:option_description = "Best place to read articles. Rich and Ad-free experience. You can easily find in-depth articles from beginner to advanced level"
+		android:layout_marginBottom = "8dp" />
+
+	<com.nitin.codetime.ui.views.CreditsRow
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		app:option_logo = "@drawable/youtube_logo"
+		app:option_name = "Youtube"
+		app:option_description = "Free videos and tutorials. Thanks to many youtubers who helped me along the way."
+		android:layout_marginBottom = "8dp" />
+
+	<TextView
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:layout_marginTop = "16dp"
+		android:text = "Disclaimer"
+		android:gravity = "center"
+		android:textAppearance = "@style/TextAppearance.AppCompat.Headline"
+		android:textStyle = "bold" />
+
+	<TextView
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:text = "I respect intellectual property of others, and by publishing this app no copyright not trademark infringement of any sort is intended. If you feel that this app infringes on any of your copyright or trademark, please mail the issue to canvas.nv@gmail.com or raise a github issue."
+		android:textSize = "18sp" />
+</LinearLayout>
